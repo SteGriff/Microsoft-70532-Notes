@@ -60,9 +60,9 @@ This is file storage. OneDrive is probably built on it. There are different type
  * Storage accounts are given two keys that can be regenerated at any time
  * Allows you to rotate keys and regenerate keys on a scheduled basis without your application losing access to the resources
 
- --------
+--------
 
- ## Azure Storage Tables
+## Azure Storage Tables
 
 Table storage is a NoSQL database - a key-value store
 
@@ -70,3 +70,40 @@ Tables contain entities that are split up across multiple nodes using a 'partiti
 
 Entities have an index, which is a combination of the partition and row keys
 Properties of a particular entity are implemented as a collection of key-value pairs
+
+(The labs for this were really fun)
+
+--------
+
+## Intermission: new IaaS DR
+
+We had Azure Site Recovery. This lets you fail over from private to public cloud using hyper-v replicate, bits/rpc (block level changes)
+
+Now we have Hyper-V replica in the cloud. More VMs on standby in the cloud so that if a cloud VM fails it can failover to a peer with only seconds of data loss.
+
+You were able to do this before but with personally liability for the failover - now the failover is with MS in the cloud and happens more automagically.
+
+--------
+
+## Storage Blobs
+
+Earlier we had storage as VHDs which were used as a local disk. This can become high maintenance at scale as machines go up/down. Instead we can use isolated blob storage which can accessed by... kinda... anything.
+
+Page blobs are used by Azure as the primary VM disk. This lives in the `vhds` folder that we see is set up with the VM. The cool thing in Azure is that the storage sticks around when you delete the VM. 
+
+Block blobs - the blocks can uploaded in parallel sets to speed up ingress of a large file. You can check each block by MD5 as it uploads for integrity. These are optimized for multimedia streaming.
+
+**Well hang on a sec**, storage blobs give each file a publicly facing URL. And you could put a storage blob behind a URL or custom IP if you want. The storage costs pennies per month. This is basically a way of *web hosting a static site* for 10p + traffic. Insane! ... Looking into it, the first 5Gb of traffic per month in a region is free. 1GB blob is 2p a month. RA-GRS makes it 6p/mo.
+
+--------
+
+## Controlling Access to Storage
+
+SAS tokens...
+
+--------
+
+# Azure files
+
+SMB 2.1 in the cloud, simple as. It's a forklift solution. You can set it up with the API or PowerShell.
+

@@ -49,6 +49,23 @@ Once you grant access to the queue - **they have access to the queue**.
 PUSH messages for mobiles... bleh...
 
 
+--------
 
+# Securing Azure
 
+## Azure Active Directory
+
+'Azure AD Connect' lets you use single sign on to get into Office365, company web apps, and domain login, all using the azure AD creds.
+
+Azure Active Directory Premium corresponds to Microsoft Identity Manager 2016 (https://www.microsoft.com/en-us/cloud-platform/microsoft-identity-manager)
+
+### Management
+
+You can manage tenants through: Microsoft Azure AD Portal, Windows Intune Account Portal, Microsoft Azure Management Portal, or Office 365 Account Portal.
+
+In the Management Portal, you can create, modify, and delete user accounts, and manage passwords.
+
+### MFA
+
+For multi factor authentication, 
 
